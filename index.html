@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>一体机</title>
+    <link rel="stylesheet" href="./dist/viewer.css">
+    <style>
+      #corver_wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        display: none;
+      }
+      #corver_wrap::after {
+        -webkit-animation: viewer-spinner 1s linear infinite;
+        animation: viewer-spinner 1s linear infinite;
+        border: 8px solid rgba(255, 255, 255, .3);
+        border-left-color: rgba(255, 255, 255);
+        border-radius: 50%;
+        content: '';
+        display: inline-block;
+        height: 80px;
+        left: 50%;
+        margin-left: -20px;
+        margin-top: -20px;
+        position: absolute;
+        top: 50%;
+        width: 80px;
+        z-index: 10000;
+    }
+    </style>
+  </head>
+  <body style="transform: scale(1) translate(0px,0px);">
+    <div id="app"></div>
+    <div id="corver_wrap"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <script>
+  	var soundPlayer1 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('1.wav');
+  	}
+  	var soundPlayer2 = function(){
+     window.external.soundPlayer_stop();
+  		window.external.soundPlayer('2.wav');
+  	}
+  	var soundPlayer3 = function(){
+      window.external.soundPlayer_stop();
+  		 window.external.soundPlayer('3.wav');
+  	}
+  	var soundPlayer4 = function(){
+      window.external.soundPlayer_stop();
+  		 window.external.soundPlayer('4.wav');
+  	}
+  	var soundPlayer5 = function(){
+       window.external.soundPlayer_stop();
+  		window.external.soundPlayer('5.wav');
+  	}
+  	var soundPlayer6 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('6.wav');
+  	}
+  	var soundPlayer7 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('7.wav');
+  	}
+  	var soundPlayer8 = function(){
+       window.external.soundPlayer_stop();
+  		window.external.soundPlayer('8.wav');
+  	}
+  	var soundPlayer9 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('9.wav');
+  	}
+  	var soundPlayer10 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('10.wav');
+  	}
+  	var soundPlayer11 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('11.wav');
+  	}
+  	var soundPlayer12 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('12.wav');
+  	}
+  	var soundPlayer17 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('17.wav');
+  	}
+  	var soundPlayer18 = function(){
+      window.external.soundPlayer_stop();
+  		window.external.soundPlayer('18.wav');
+    }
+    
+    var openLoding = function(){
+      document.getElementById("corver_wrap").style.display = 'block'
+    }
+    var hideLoding = function(){
+      document.getElementById("corver_wrap").style.display = 'none'
+    }
+    var errorAlertInfo = function(status){
+        var length = window.__common_errors.length;
+        for(var i =0;i<length;i++){
+            if(window.__common_errors[i].code == status){
+                alert(window.__common_errors[i].msg) 
+                return
+            }
+        }
+        alert('异常错误')
+    }
+  </script>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://fengyuanchen.github.io/js/common.js"></script>
+  <script src="./dist/viewer.js"></script> -->
+  <script src="js/main.js">clear_cache();</script>
+</html>
