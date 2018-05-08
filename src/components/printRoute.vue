@@ -68,6 +68,7 @@ export default {
           window.equipmentID = equipmentInfo.MAC[0];
           // this.$http.post('/equipments?equipmentId='+window.equipmentID)
         }
+          window.equipmentID = "TESTBBBBBBB1"
   },
   data(){
     return {
