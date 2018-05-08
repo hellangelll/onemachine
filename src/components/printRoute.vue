@@ -66,7 +66,7 @@ export default {
           var equipmentInfo = window.external.GetPcInfo();
           equipmentInfo = JSON.parse(equipmentInfo);
           window.equipmentID = equipmentInfo.MAC[0];
-          this.$http.post('/equipments?equipmentId='+window.equipmentID)
+          // this.$http.post('/equipments?equipmentId='+window.equipmentID)
         }
   },
   data(){
