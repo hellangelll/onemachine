@@ -5,7 +5,7 @@
             <div class="plcw-left">
                 <div id="plcwl-box-preview-four" class="plcwl-box">
                     <img class="img" style="position:absolute;z-index:6;top:0px;margin:auto;width:544px;height:770px;display:block" src="@/assets/print-preview-background.jpeg" alt="">
-                    <img class="img" style="position:absolute;z-index:8;top:0px;margin:auto;width:544px;height:770px;display:block" :src="printImg_preview" alt="">
+                    <img class="img" style="position:absolute;z-index:8;top:0px;margin:auto;width:544px;height:770px;display:block" :src="printImg" alt="">
                 </div>
             </div>
             <div class="plcw-right">
@@ -52,15 +52,15 @@
                 var itemUrl_preview = '/licenses/individual/copy/preview'
                 var itemUrl = '/licenses/individual/copy/gen'
             }
-            this.$http.post(itemUrl_preview,itemOb).then(response => {
-                  this.printImg_preview = response.data;
-            }, response => {
-                if(response.response.data && response.response.data.msg){
-                   alert(response.response.data.msg) 
-                } else {
-                    window.errorAlertInfo(response.stauts)
-               }
-            })
+            // this.$http.post(itemUrl_preview,itemOb).then(response => {
+            //       this.printImg_preview = response.data;
+            // }, response => {
+            //     if(response.response.data && response.response.data.msg){
+            //        alert(response.response.data.msg) 
+            //     } else {
+            //         window.errorAlertInfo(response.stauts)
+            //    }
+            // })
             this.$http.post(itemUrl,itemOb).then(response => {
                   this.printImg = response.data;
             }, response => {

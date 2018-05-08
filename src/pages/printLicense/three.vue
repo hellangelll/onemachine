@@ -5,7 +5,7 @@
             <div class="plcw-left">
                 <div id="plcwl-box-preview-three" class="plcwl-box">
                     <img class="img" style="position:absolute;z-index:6;top:0px;margin:auto;width:544px;height:770px;display:block" src="@/assets/print-preview-background.jpeg" alt="">
-                    <img class="img" style="position:absolute;z-index:8;top:0px;margin:auto;width:544px;height:770px;display:block" :src="printImg_preview" alt="">
+                    <img class="img" style="position:absolute;z-index:8;top:0px;margin:auto;width:544px;height:770px;display:block" :src="printImg" alt="">
                 </div>
             </div>
             <div class="plcw-right">
@@ -51,15 +51,15 @@
                 var itemUrl = '/licenses/individual/original/gen'
             }
 
-            this.$http.post(itemUrl_preview,itemOb).then(response => {
-                  this.printImg_preview = response.data;
-            }, response => {
-                if(response.response.data && response.response.data.msg){
-                   alert(response.response.data.msg) 
-                } else {
-                    window.errorAlertInfo(response.stauts)
-               }
-            })
+            // this.$http.post(itemUrl_preview,itemOb).then(response => {
+            //       this.printImg_preview = response.data;
+            // }, response => {
+            //     if(response.response.data && response.response.data.msg){
+            //        alert(response.response.data.msg) 
+            //     } else {
+            //         window.errorAlertInfo(response.stauts)
+            //    }
+            // })
             this.$http.post(itemUrl,itemOb).then(response => {
                   this.printImg = response.data;
             }, response => {
@@ -93,39 +93,39 @@
                 this.print();
             },
             print() {
-                // var receivedData = window.external.PrintStatus();
-                // var info = JSON.parse(receivedData);
-                // if (info.status == 100) {
-                //     if (info.typecode < 256) {
-                //         //正常状态
-                //         switch (info.typecode) {
-                //             case 0:
-                                alert("就绪");
+                var receivedData = window.external.PrintStatus();
+                var info = JSON.parse(receivedData);
+                if (info.status == 100) {
+                    if (info.typecode < 256) {
+                        //正常状态
+                        switch (info.typecode) {
+                            case 0:
+                                // alert("就绪");
                                 this.print_picture()
-                //                 break;
-                //             case 1:
-                //                 alert("正在打印，请稍后再试");
-                //                 break;
-                //             case 2:
-                //                 alert("初始化中，请稍后再试");
-                //                 break;
-                //             case 4:
-                //                 alert("睡眠，请稍后再试");
-                //                 break;
-                //         }
-                //     }
-                //     else {
-                //         //异常状态
-                //         alert(info.typeinfo);
-                //     }
-                // }
-                // else if (info.status == 300) {
-                //     alert("模块未开启，请稍后再试");
-                // }
-                // else {
-                //     window.external.PrintWakeup();
-                //     alert("失败：" + info.msg);
-                // }
+                                break;
+                            case 1:
+                                alert("正在打印，请稍后再试");
+                                break;
+                            case 2:
+                                alert("初始化中，请稍后再试");
+                                break;
+                            case 4:
+                                alert("睡眠，请稍后再试");
+                                break;
+                        }
+                    }
+                    else {
+                        //异常状态
+                        alert(info.typeinfo);
+                    }
+                }
+                else if (info.status == 300) {
+                    alert("模块未开启，请稍后再试");
+                }
+                else {
+                    window.external.PrintWakeup();
+                    alert("失败：" + info.msg);
+                }
             },
             getRadioVal(name) {
                 var result;
@@ -154,13 +154,10 @@
                     "Imgstr": img3
                 };
                 var data = JSON.stringify(photo);
-                        alert(0)
                 me.printBitmap(data, function (receivedData) {
-                    alert(receivedData)
                     var info = JSON.parse(receivedData);
-                    // if (info.status == 100) {
+                    if (info.status == 100) {
                         var itemOb = JSON.parse(me.$route.query.itemStr);
-                        alert(1)
                         me.$http.post('/licenses/original/print',{
                             "bizId": itemOb.bizId,
                             "bizType": me.$route.query.bizType,
@@ -170,7 +167,6 @@
                             "printerId": me.$route.query.printerId,
                             "result": 1
                         }).then(response => {
-                            alert(2)
                             me.$router.push({ path:'/printLicense/print-success/true',query:{
                                 itemStr: me.$route.query.itemStr,
                                 printerId:  me.$route.query.printerId,
@@ -183,9 +179,9 @@
                                 window.errorAlertInfo(response.stauts)
                            }
                         })
-                    // } else {
-                    //     alert(info.msg)
-                    // }
+                    } else {
+                        alert(info.msg)
+                    }
                     
                 });
             },
