@@ -49,56 +49,56 @@
         mounted: function(){
             var me = this;
             window.localStorage['one-user'] = '';
-            // var interval_num = 0;
-            // clearInterval(me.interval_key);
-            // me.interval_key = setInterval(function(){
-            //     if(interval_num>=12){
-            //         clearInterval(me.interval_key);
-            //         return;
-            //     }
-            //     interval_num = interval_num +1;
-            //     // 识别身份证
-            //     me.idReaderReadInfo(
-            //         "nothing",
-            //         function (receivedData) {
-            //             if(interval_num == 1){
-            //                 setTimeout(function(){
-            //                   window.soundPlayer3();
-            //                 },300)
-            //             }
-            //             var idInfo = JSON.parse(receivedData);
-            //             if (idInfo.status == 100) {
-                            // me.user.img = idInfo.idImg;
-                            // me.user.name = idInfo.name;
-                            // me.user.idCard = idInfo.idCardNo;
-                            // me.reading = true;
-                            // clearInterval(me.interval_key);
-                            // window.localStorage['one-user'] = JSON.stringify(me.user);
-                            // setTimeout(function(){
-                            //   window.soundPlayer4();
-                            // },300)
-            //             } else  {
-            //                 if(interval_num%4 == 0){
-            //                     setTimeout(function(){
-            //                       window.soundPlayer5();
-            //                     },300)
-            //                 }
-            //             }
-            //     });
-            // },4000)
+            var interval_num = 0;
+            clearInterval(me.interval_key);
+            me.interval_key = setInterval(function(){
+                if(interval_num>=12){
+                    clearInterval(me.interval_key);
+                    return;
+                }
+                interval_num = interval_num +1;
+                // 识别身份证
+                me.idReaderReadInfo(
+                    "nothing",
+                    function (receivedData) {
+                        if(interval_num == 1){
+                            setTimeout(function(){
+                              window.soundPlayer3();
+                            },300)
+                        }
+                        var idInfo = JSON.parse(receivedData);
+                        if (idInfo.status == 100) {
+                            me.user.img = idInfo.idImg;
+                            me.user.name = idInfo.name;
+                            me.user.idCard = idInfo.idCardNo;
+                            me.reading = true;
+                            clearInterval(me.interval_key);
+                            window.localStorage['one-user'] = JSON.stringify(me.user);
+                            setTimeout(function(){
+                              window.soundPlayer4();
+                            },300)
+                        } else  {
+                            if(interval_num%4 == 0){
+                                setTimeout(function(){
+                                  window.soundPlayer5();
+                                },300)
+                            }
+                        }
+                });
+            },4000)
 
-            me.user.img = '';
-            me.user.name = '';
-            me.user.idCard = '';
-            me.reading = true;
-            window.localStorage['one-user'] = JSON.stringify(me.user);
-            setTimeout(function(){
-              window.soundPlayer4();
-            },300)
+            // me.user.img = '';
+            // me.user.name = '';
+            // me.user.idCard = '';
+            // me.reading = true;
+            // window.localStorage['one-user'] = JSON.stringify(me.user);
+            // setTimeout(function(){
+            //   window.soundPlayer4();
+            // },300)
 
-            setTimeout(function(){
-              window.soundPlayer2();
-            },1200)
+            // setTimeout(function(){
+            //   window.soundPlayer2();
+            // },1200)
 
         },
         methods: {
