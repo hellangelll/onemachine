@@ -4,7 +4,8 @@
         <div class="print-license-content-wrap">
             <div class="plcw-left">
                 <div id="plcwl-box-preview-four" class="plcwl-box">
-                    <img class="img" style="position:relative;top:20px;margin:auto;width:450px;height:666px;display:block" :src="printImg_preview" alt="">
+                    <img class="img" style="position:absolute;z-index:6;top:0px;margin:auto;width:544px;height:770px;display:block" src="@/assets/print-preview-background.jpeg" alt="">
+                    <img class="img" style="position:absolute;z-index:8;top:0px;margin:auto;width:544px;height:770px;display:block" :src="printImg_preview" alt="">
                 </div>
             </div>
             <div class="plcw-right">
@@ -39,34 +40,19 @@
             }
         },
         mounted: function(){
-            if(this.$route.query){
-                var address = this.$route.query && this.$route.query.address;
-                var bizId = this.$route.query && this.$route.query.bizId;
-                var bizScope = this.$route.query && this.$route.query.bizScope;
-                var bizType = this.$route.query && this.$route.query.bizType;
-                var copyNo = this.$route.query && this.$route.query.copyNo;
-                var entityName = this.$route.query && this.$route.query.entityName;
-                var foundDate = this.$route.query && this.$route.query.foundDate;
-                var fromDate = this.$route.query && this.$route.query.fromDate;
-                var legalPerson = this.$route.query && this.$route.query.legalPerson;
-                var regMoney = this.$route.query && this.$route.query.regMoney;
-                var toDate = this.$route.query && this.$route.query.toDate;
-                var uniscId = this.$route.query && this.$route.query.uniscId;
+            if(this.$route.query && this.$route.query.itemStr){
+                var itemOb = JSON.parse(this.$route.query.itemStr);
             }
-            this.$http.post('/licenses/copy/preview',{
-                  address: address,
-                  bizId: bizId,
-                  bizScope: bizScope,
-                  bizType: bizType,
-                  copyNo: copyNo,
-                  entityName: entityName,
-                  foundDate: foundDate,
-                  fromDate: fromDate,
-                  legalPerson: legalPerson,
-                  regMoney: regMoney,
-                  toDate: toDate,
-                  uniscId: uniscId
-            }).then(response => {
+            var itemUrl;
+            // 区分一下企业和个人营业执照
+            if(itemOb.address){
+                var itemUrl_preview = '/licenses/national/copy/preview';
+                var itemUrl = '/licenses/national/copy/gen';
+            } else {
+                var itemUrl_preview = '/licenses/individual/copy/preview'
+                var itemUrl = '/licenses/individual/copy/gen'
+            }
+            this.$http.post(itemUrl_preview,itemOb).then(response => {
                   this.printImg_preview = response.data;
             }, response => {
                 if(response.response.data && response.response.data.msg){
@@ -75,35 +61,28 @@
                     window.errorAlertInfo(response.stauts)
                }
             })
-                this.$http.post('/licenses/copy/gen',{
-                      address: address,
-                      bizId: bizId,
-                      bizScope: bizScope,
-                      bizType: bizType,
-                      copyNo: copyNo,
-                      entityName: entityName,
-                      foundDate: foundDate,
-                      fromDate: fromDate,
-                      legalPerson: legalPerson,
-                      regMoney: regMoney,
-                      toDate: toDate,
-                      uniscId: uniscId
-                }).then(response => {
-                      this.printImg = response.data;
-                }, response => {
-                    if(response.response.data && response.response.data.msg){
-                       alert(response.response.data.msg) 
-                    } 
-                })
-            window.addEventListener('DOMContentLoaded', function () {
-              var galley = document.getElementById('plcwl-box-preview-four');
-              window.PP_viewer_four = new Viewer(galley, {
-                button: false,
-                navbar: false,
-                title: false,
-                toolbar: false,
-              });
-            });
+            this.$http.post(itemUrl,itemOb).then(response => {
+                  this.printImg = response.data;
+            }, response => {
+                if(response.response.data && response.response.data.msg){
+                   alert(response.response.data.msg) 
+                } else {
+                    window.errorAlertInfo(response.stauts)
+               }
+            })
+            // window.addEventListener('DOMContentLoaded', function () {
+
+            // setTimeout(function(){
+            //   var galley = document.getElementById('plcwl-box-preview-four');
+            //   window.PP_viewer_four = new Viewer(galley, {
+            //     button: false,
+            //     navbar: false,
+            //     title: false,
+            //     toolbar: false,
+            //   });
+            // },5000)
+
+            // });
             setTimeout(function(){
                 window.soundPlayer12();
             },100)
@@ -126,7 +105,6 @@
                 this.$emit('do-something');
                 var me = this;
                 // if(this.activeLicenseIndex){
-                this.reading = true
                 // setTimeout(function(){
                 //     me.goto('/printLicense/print-success')
                 // },6000)
@@ -180,6 +158,12 @@
             },
             print_picture() {
                 var me = this;
+                if(!this.printImg){
+                    this.reading = false;
+                    alert('暂未获取到需要打印的图片')
+                    return
+                }
+                this.reading = true
                 //打印图片
                 var img3 = this.printImg.split(',')[1];
 
@@ -190,19 +174,18 @@
                     "ChoicePaper": me.getRadioVal('ChoicePaper')
                 };
                 var data = JSON.stringify(photo);
-                if(this.$route.query){
-                    var bizId = this.$route.query && this.$route.query.bizId;
-                    var bizType = this.$route.query && this.$route.query.bizType;
-                }
                 me.printBitmap(data, function (receivedData) {
                     var info = JSON.parse(receivedData);
                    if (info.status == 100 || !info.status) {
+                        var itemOb = JSON.parse(me.$route.query.itemStr);
                        me.$http.post('/licenses/copy/print',{
-                           "bizId": me.$route.query.bizId,
-                           "bizType": me.$route.query.bizType,
-                           "printerId": me.$route.query.printerId,
-                           "printNum": 1,
-                           "result": 1
+                          "bizId": itemOb.bizId,
+                          "bizType": me.$route.query.bizType,
+                          "entityId": me.$route.query.entityId,
+                          "equipmentId": window.equipmentID,
+                          "printNum": 1,
+                          "printerId": me.$route.query.printerId,
+                          "result": 1
                        }).then(response => {
                            me.goto('/printLicense/print-success');
                        }, response => {
@@ -212,7 +195,9 @@
                                 window.errorAlertInfo(response.stauts)
                            }
                        })
-                   }
+                   } else {
+                        alert(info.msg)
+                    }
                 });
 
             },
@@ -246,8 +231,9 @@
         margin-left: 80px;
         margin-top: -6px;
         background-color: #093c8d;
-        width: 530px;
-        height: 702px;
+        width: 544px;
+        height: 770px;
+        position: relative;
     }
     #printLicense-four .plcw-box {
        width: 358px;

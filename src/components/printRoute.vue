@@ -1,5 +1,15 @@
 <template>
 <div class="coment">
+  <div class="swiper-container" :style="{visibility:swiperHide}">
+      <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="@/assets/swiper1.jpeg">
+          </div>
+          <div class="swiper-slide">
+            <img src="@/assets/swiper2.jpeg">
+          </div>
+      </div>
+  </div>
   <div class="gg">
     <ul style="list-style-type:none;">
       <li>营业执照当日(正本)打印: 188 份</li>
@@ -23,7 +33,7 @@
 <script>
 export default {
   mounted(){
-    let me = this;
+        let me = this;
         let interval = window.setInterval(function() {
           if(me.$router.currentRoute.path !== '/'){
             window.clearInterval(interval);
@@ -31,7 +41,16 @@ export default {
           if ((me.sec--) <= 0) {
             window.hideLoding();
             window.clearInterval(interval);
-            me.$router.push('/');
+            // me.$router.push('/');
+            me.swiperHide = 'visible';
+            var mySwiper = new Swiper('.swiper-container',{
+              loop: true,
+              autoplay: 3000,
+              initialSlide: 0,
+              onClick: function(swiper){
+                  me.hideSwiper()
+              },
+            });
           }
         }, 1000);
         setTimeout(function(){
@@ -43,17 +62,49 @@ export default {
             }
         })
 
-        // me.$http.get('common/errors')
+        if(!window.equipmentID){
+          var equipmentInfo = window.external.GetPcInfo();
+          equipmentInfo = JSON.parse(equipmentInfo);
+          window.equipmentID = equipmentInfo.MAC[0];
+          this.$http.post('/equipments?equipmentId='+window.equipmentID)
+        }
   },
   data(){
     return {
-      sec:120
+      sec:120,
+      swiperHide: 'hidden'
     }
   },
   methods: {
     printInfo: function (par) {
-      debugger
       this.$router.push({ path: par })
+    },
+    hideSwiper: function(){
+      var me = this;
+      this.swiperHide = 'hidden';
+      this.sec =120;
+      let interval = window.setInterval(function() {
+          if(me.$router.currentRoute.path !== '/'){
+            window.clearInterval(interval);
+          }
+          if ((me.sec--) <= 0) {
+            window.hideLoding();
+            window.clearInterval(interval);
+            // me.$router.push('/');
+            me.swiperHide = 'visible';
+            var mySwiper = new Swiper('.swiper-container',{
+              loop: true,
+              autoplay: 3000,
+              initialSlide: 0,
+              onClick: function(swiper){
+                  me.hideSwiper()
+              },
+            });
+          }
+        }, 1000);
+      setTimeout(function(){
+          window.soundPlayer1();
+        },1200)
     }
   }
 }
@@ -129,5 +180,19 @@ export default {
 }
 .gg li{
   line-height: 40px;
+}
+.swiper-slide {
+  line-height: 300px;
+  color: #fff;
+  font-size: 36px;
+  text-align: center;
+  background: #4390EE;
+}
+.swiper-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>

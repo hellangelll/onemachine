@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>一体机</title>
     <link rel="stylesheet" href="./dist/viewer.css">
+    <link rel="stylesheet" href="./swiper/css/swiper.css">
     <style>
+    body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
       #corver_wrap {
         position: absolute;
         left: 0;
@@ -35,12 +44,16 @@
     }
     </style>
   </head>
-  <body style="transform: scale(1) translate(0px,0px);">
+  <body style="transform: scale(1) translate(0,0);">
     <div id="app"></div>
     <div id="corver_wrap"></div>
     <!-- built files will be auto injected -->
   </body>
   <script>
+    /* 禁止默认事件 */
+    document.ondragstart = function() {
+        return false;
+    };
   	var soundPlayer1 = function(){
       window.external.soundPlayer_stop();
   		window.external.soundPlayer('1.wav');
@@ -114,10 +127,14 @@
         }
         alert('异常错误')
     }
+
+
   </script>
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-  <script src="https://fengyuanchen.github.io/js/common.js"></script>
-  <script src="./dist/viewer.js"></script> -->
+ <!--  // <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  // <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  // <script src="https://fengyuanchen.github.io/js/common.js"></script>
+  // <script src="./dist/viewer.js"></script>
+  // <script src="./dist/main.js"></script> -->
+  <script src="swiper/js/swiper.min.js"></script>
   <script src="js/main.js">clear_cache();</script>
 </html>

@@ -1,4 +1,12 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>一体机</title><link rel=stylesheet href=./dist/viewer.css><style>#corver_wrap {
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>一体机</title><link rel=stylesheet href=./dist/viewer.css><link rel=stylesheet href=./swiper/css/swiper.css><style>body{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+      #corver_wrap {
         position: absolute;
         left: 0;
         right: 0;
@@ -24,7 +32,11 @@
         top: 50%;
         width: 80px;
         z-index: 10000;
-    }</style><link href=./static/css/app.e43f8d3131ffffe06cc77cb38d374321.css rel=stylesheet></head><body style="transform: scale(1) translate(0px,0px);"><div id=app></div><div id=corver_wrap></div><script type=text/javascript src=./static/js/manifest.3ad1d5771e9b13dbdad2.js></script><script type=text/javascript src=./static/js/vendor.14ebb0a5788624570363.js></script><script type=text/javascript src=./static/js/app.db5f197dceb476a35648.js></script></body><script>var soundPlayer1 = function(){
+    }</style><link href=./static/css/app.a0be950ab2fd4b5a9bc14357293f5d79.css rel=stylesheet></head><body style="transform: scale(1) translate(0,0);"><div id=app></div><div id=corver_wrap></div><script type=text/javascript src=./static/js/manifest.3ad1d5771e9b13dbdad2.js></script><script type=text/javascript src=./static/js/vendor.9251cbf225f514c6b782.js></script><script type=text/javascript src=./static/js/app.73163e7c122596c95e3a.js></script></body><script>/* 禁止默认事件 */
+    document.ondragstart = function() {
+        return false;
+    };
+  	var soundPlayer1 = function(){
       window.external.soundPlayer_stop();
   		window.external.soundPlayer('1.wav');
   	}
@@ -96,4 +108,4 @@
             }
         }
         alert('异常错误')
-    }</script><script src=js/main.js>clear_cache();</script></html>
+    }</script><script src=swiper/js/swiper.min.js></script><script src=js/main.js>clear_cache();</script></html>

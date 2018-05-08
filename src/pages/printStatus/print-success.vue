@@ -12,35 +12,10 @@
       onClickBtn (){
         var me = this;
       	if(this.canPrint){
-          if(me.$route.query){
-                var address = me.$route.query.address;
-                var bizId = me.$route.query.bizId;
-                var bizScope = me.$route.query.bizScope;
-                var bizType = me.$route.query.bizType;
-                var copyNo = me.$route.query.copyNo;
-                var entityName = me.$route.query.entityName;
-                var foundDate = me.$route.query.foundDate;
-                var fromDate = me.$route.query.fromDate;
-                var legalPerson = me.$route.query.legalPerson;
-                var regMoney = me.$route.query.regMoney;
-                var toDate = me.$route.query.toDate;
-                var uniscId = me.$route.query.uniscId;
-                var printerId = me.$route.query.printerId;
-            }
-        	this.$router.push({ path: '/printLicense/four' ,query:{
-                address: address,
-                bizId: bizId,
-                bizScope: bizScope,
-                bizType: bizType,
-                copyNo: copyNo,
-                entityName: entityName,
-                foundDate: foundDate,
-                fromDate: fromDate,
-                legalPerson: legalPerson,
-                regMoney: regMoney,
-                toDate: toDate,
-                uniscId: uniscId,
-                printerId: printerId
+        	 this.$router.push({ path: '/printLicense/four' ,query:{
+                itemStr: me.$route.query.itemStr,
+                printerId:  me.$route.query.printerId,
+                bizType:  me.$route.query.bizType
             }})
       	} else {
         	this.$router.push({ path: '/printLicense/print-no-license' })

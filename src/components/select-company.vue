@@ -52,7 +52,7 @@
       },
       onSelectItem() {
         this.$emit('on-do-something')
-        this.$emit('on-select',this.company[this.isActiveIndex])
+        this.$emit('on-select',this.company[this.isActiveIndex],this.isActiveIndex)
       },
       showDialog() {
         this.$emit('on-do-something')
@@ -123,7 +123,7 @@
     left: 50%;
     margin-left: -632px;
     top: 100px;
-    transform: scale(0.5) translate(-400px,-300px);
+    /*transform: scale(0.5) translate(-400px,-300px);*/
   }
   .select-company-head {
     width: 1197px;
