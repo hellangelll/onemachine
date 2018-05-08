@@ -8,7 +8,9 @@ window.Promise = require("bluebird");
 // import store from './store'
 
 
-axios.defaults.baseURL = 'http://47.104.201.64:8080';
+// axios.defaults.baseURL = 'http://47.104.201.64:8080';
+// axios.defaults.baseURL = 'http://localhost/data';
+axios.defaults.baseURL = './getBackgroundData';
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 Vue.prototype.$http = axios
 
