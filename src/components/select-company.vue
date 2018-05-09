@@ -5,8 +5,8 @@
         <div class="select-company-content"  v-if="isShow">
             <div class="select-company-head"></div>
             <div class="select-company-input-wrap">
-               <input class="select-company-input" placeholder="请输入公司名称进行搜索"/>
-               <div class="select-company-input-search-icon"></div> 
+               <input style="display:none;" class="select-company-input" placeholder="请输入公司名称进行搜索"/>
+               <div style="display:none;" class="select-company-input-search-icon"></div> 
             </div>
             <div class="select-company-list">
                 <p v-for="(item,index) in company" :class="['select-company-list-item',isActiveIndex ===index?'active':'']" :data-biz-id="item.bizId" :data-biz-type="item.Type" @click="onClickItem(item,index)">{{item.entityName}}</p>
@@ -47,8 +47,8 @@
     },
     methods: {
       closeMyself() {
-        this.$emit('on-do-something')
-        this.$emit('on-close')
+        // this.$emit('on-do-something')
+        // this.$emit('on-close')
       },
       onSelectItem() {
         this.$emit('on-do-something')
@@ -59,8 +59,8 @@
         this.isShowDialog = true;
       },
       closeMyselfDialog() {
-        this.$emit('on-do-something')
-        this.isShowDialog = false;
+        // this.$emit('on-do-something')
+        // this.isShowDialog = false;
       },
       openDialog() {
         this.$emit('on-do-something')

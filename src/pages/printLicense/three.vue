@@ -113,6 +113,18 @@
                                 window.external.PrintWakeup();
                                 alert("睡眠，请稍后再试");
                                 break;
+                            case 100:
+                                alert("打印机缺纸，请联系管理员");
+                                break;
+                            case 200:
+                                alert("打印机缺墨，请联系管理员");
+                                break;
+                            case 400:
+                                alert("打印机卡纸，请联系管理员");
+                                break;
+                            case 800:
+                                alert("打印机仓门被打开，请联系管理员");
+                                break;    
                         }
                     }
                     else {
@@ -143,21 +155,23 @@
                 //打印图片
                 if(!this.printImg){
                     this.reading = false;
-                    alert('暂未获取到需要打印的图片')
+                    alert('暂未获取到营业执照相关信息！')
                     return
                 }
                 this.reading = true; 
                 var img3 = this.printImg.split(',')[1];
                 var photo = {
                     "Num": 1,
-                    "ChoiceTray": me.getRadioVal('ChoiceTray'),
-                    "ChoicePaper": me.getRadioVal('ChoicePaper'),
+                    // "ChoiceTray": me.getRadioVal('ChoiceTray'),
+                    // "ChoicePaper": me.getRadioVal('ChoicePaper'),
+                    "ChoiceTray": 1,
+                    "ChoicePaper": 1,
                     "Imgstr": img3
                 };
                 var data = JSON.stringify(photo);
                 me.printBitmap(data, function (receivedData) {
                     var info = JSON.parse(receivedData);
-                    alert(receivedData)
+                    // alert(receivedData)
                     if (info.status == 100) {
                         var itemOb = JSON.parse(me.$route.query.itemStr);
                         me.$http.post('/licenses/printLog',{
@@ -212,13 +226,20 @@
         width: 50%;
     }
     #printLicense-three .plcwl-box {
+        float: left;
+        top: 0;
         border: 1px solid #00a4ff;
         border-radius: 5px;
         margin-left: 80px;
         margin-top: -16px;
+        /* border-radius: 0;
+        margin-left: 0;
+        margin-top: 0; */
         background-color: #093c8d;
         width: 544px;
         height: 770px;
+        /* width: 763px;
+        height: 1080px; */
         position: relative;
     }
     #printLicense-three .plcw-box {

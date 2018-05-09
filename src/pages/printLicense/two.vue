@@ -29,7 +29,7 @@
                     <img v-if="failed" class="img" style="margin: 0 auto;display: block;position:relative;margin-top: 30px;" @click="changeRetry" src="@/assets/retry.jpg" alt="">
                 </div>
                 <div v-else class="plcw-box-success">
-                    <p>恭喜你，验证成功！</p>
+                    <p>验证中，请稍后</p>
                     <img style="width:356px;height:356px;margin: 0 auto 35px;display:block;border-radius: 5px;" :src="'data:image/jpeg;base64,'+camearImg">
                     <img class="img" style="margin: 0 auto;display: block;position:relative;margin-top: 90px;" @click="changeisShow" src="@/assets/btn_next.png" alt="">
                 </div>
@@ -188,28 +188,28 @@
                                     window.soundPlayer6();
                                 },100)
                             }
-                            if(interval_num == 2){
-                                setTimeout(function(){
-                                    window.soundPlayer7();
-                                },100)
-                            }
-                            if(interval_num == 3){
-                                setTimeout(function(){
-                                    window.soundPlayer8();
-                                },100)
-                            }
-                            if(interval_num == 4){
-                                setTimeout(function(){
-                                    window.soundPlayer9();
-                                },100)
-                            }
-                            if(interval_num == 5){
-                                setTimeout(function(){
-                                    window.soundPlayer17();
-                                },100)
-                            }
+                            // if(interval_num == 2){
+                            //     setTimeout(function(){
+                            //         window.soundPlayer7();
+                            //     },100)
+                            // }
+                            // if(interval_num == 3){
+                            //     setTimeout(function(){
+                            //         window.soundPlayer8();
+                            //     },100)
+                            // }
+                            // if(interval_num == 4){
+                            //     setTimeout(function(){
+                            //         window.soundPlayer9();
+                            //     },100)
+                            // }
+                            // if(interval_num == 5){
+                            //     setTimeout(function(){
+                            //         window.soundPlayer17();
+                            //     },100)
+                            // }
 
-                            if(interval_num>=6){
+                            if(interval_num>=2){
                                 //close
                                 setTimeout(function(){
                                     window.soundPlayer10();
@@ -222,7 +222,7 @@
                             me.doTakePhotos()
                         },4000);
                     } else {
-                        alert('打开摄像头失败')
+                        alert('打开摄像头失败!')
                     }
                     
                 })
@@ -260,7 +260,7 @@
                 me.Face_recognition(data1,
                     function (data) {
                         var info = JSON.parse(data);
-                        if(info.status == 100){
+                        if(info.status >= 100){
                             if(info.score>=0){
                                 window.external.Close_Camera("closeCamera_callback");
                                 // window.external.NotShow_Camera();
@@ -270,6 +270,8 @@
                                 me.reading = true
                             }
                             clearInterval(me.interval_key);
+                        }else{
+                            alert('拍照失败，请重试！');
                         }
                     }
                 )

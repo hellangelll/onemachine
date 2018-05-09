@@ -172,8 +172,10 @@
                 var photo = {
                     "Num": 1,
                     "Imgstr": img3,
-                    "ChoiceTray": me.getRadioVal('ChoiceTray'),
-                    "ChoicePaper": me.getRadioVal('ChoicePaper')
+                    // "ChoiceTray": me.getRadioVal('ChoiceTray'),
+                    // "ChoicePaper": me.getRadioVal('ChoicePaper')
+                    "ChoiceTray": 0,
+                    "ChoicePaper": 0
                 };
                 var data = JSON.stringify(photo);
                 me.printBitmap(data, function (receivedData) {

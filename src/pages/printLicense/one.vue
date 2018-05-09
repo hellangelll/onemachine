@@ -96,9 +96,9 @@
             //   window.soundPlayer4();
             // },300)
 
-            // setTimeout(function(){
-            //   window.soundPlayer2();
-            // },1200)
+            setTimeout(function(){
+              window.soundPlayer2();
+            },1200)
 
         },
         methods: {
