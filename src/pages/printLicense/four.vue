@@ -4,7 +4,7 @@
         <div class="print-license-content-wrap">
             <div class="plcw-left">
                 <div id="plcwl-box-preview-four" class="plcwl-box">
-                    <img class="img" style="position:absolute;z-index:6;top:0px;margin:auto;width:544px;height:770px;display:block" src="@/assets/print-preview-background.jpeg" alt="">
+                    <img class="img" style="position:absolute;z-index:6;top:0px;margin:auto;width:544px;height:770px;display:block" src="@/assets/print-preview-background-2.jpg" alt="">
                     <img class="img" style="position:absolute;z-index:8;top:0px;margin:auto;width:544px;height:770px;display:block" :src="printImg" alt="">
                 </div>
             </div>
@@ -130,6 +130,7 @@
                                 alert("初始化中，请稍后再试");
                                 break;
                             case 4:
+                                window.external.PrintWakeup();
                                 alert("睡眠，请稍后再试");
                                 break;
                         }
@@ -143,6 +144,7 @@
                     alert("模块未开启，请稍后再试");
                 }
                 else {
+                    window.external.PrintWakeup();
                     alert("失败：" + info.msg);
                 }
             },
@@ -178,11 +180,11 @@
                     var info = JSON.parse(receivedData);
                    if (info.status == 100 || !info.status) {
                         var itemOb = JSON.parse(me.$route.query.itemStr);
-                       me.$http.post('/licenses/copy/print',{
+                       me.$http.post('/licenses/printLog',{
                           "bizId": itemOb.bizId,
                           "bizType": me.$route.query.bizType,
-                          "entityId": me.$route.query.entityId,
                           "equipmentId": window.equipmentID,
+                          "licenseType": 2,
                           "printNum": 1,
                           "printerId": me.$route.query.printerId,
                           "result": 1

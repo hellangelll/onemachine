@@ -87,9 +87,9 @@
                 this.$emit('do-something');
                 var itemStr = JSON.stringify(item);
                 if(index < this.individualLicenseInfosLenght){
-                    var bizType = 0;
-                } else {
                     var bizType = 1;
+                } else {
+                    var bizType = 2;
                 }
                 this.$router.push({ path: '/printLicense/three',query:{
                     itemStr:itemStr,
