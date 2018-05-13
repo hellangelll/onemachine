@@ -51,8 +51,8 @@
             return {
                 interval_key: '',
                 isShow: false,
-                // reading: false,
-                reading: true,
+                reading: false,
+                // reading: true,
                 failed: false,
                 user: {
                     name: '',
@@ -225,7 +225,7 @@
             camear2() {
                 var me = this;
                 // var layout={'openType':0,'layoutX': 1198.5,'layoutY': 388,'layoutWidth': 358,'layoutHeight': 358,'choiceCamera':0,'addGrid':1};
-                var layout={'openType':0,'layoutX': 1160,'layoutY': 390,'layoutWidth': 379,'layoutHeight': 379,'choiceCamera':0,'addGrid':1};
+                var layout={'openType':1,'layoutX': 1160,'layoutY': 390,'layoutWidth': 379,'layoutHeight': 379,'choiceCamera':0,'addGrid':1,"bgStyle":1};
 
                 var jsonlayout=JSON.stringify(layout);
                 window.external.Show_Camera();
@@ -239,21 +239,21 @@
                         },100)
                         var interval_num = 0;
                         me.interval_key = setInterval(function(){
-                            if(interval_num == 1){
+                            // if(interval_num == 1){
+                            //     setTimeout(function(){
+                            //         window.soundPlayer6();
+                            //     },100)
+                            // }
+                            if(interval_num == 2){
                                 setTimeout(function(){
-                                    window.soundPlayer6();
+                                    window.soundPlayer7();
                                 },100)
                             }
-                            // if(interval_num == 2){
-                            //     setTimeout(function(){
-                            //         window.soundPlayer7();
-                            //     },100)
-                            // }
-                            // if(interval_num == 3){
-                            //     setTimeout(function(){
-                            //         window.soundPlayer8();
-                            //     },100)
-                            // }
+                            if(interval_num == 3){
+                                setTimeout(function(){
+                                    window.soundPlayer8();
+                                },100)
+                            }
                             // if(interval_num == 4){
                             //     setTimeout(function(){
                             //         window.soundPlayer9();
@@ -265,22 +265,24 @@
                             //     },100)
                             // }
 
-                            if(interval_num>=2){
+                            if(interval_num>=9){
                                 //close
                                 setTimeout(function(){
                                     window.soundPlayer10();
                                 },100)
-                                this.failed =true;
+                                me.failed =true;
                                 clearInterval(me.interval_key);
                                 return;
                             }
                             interval_num = interval_num +1;
-                            me.doTakePhotos()
+                            //尝试4次
+                            if(interval_num>4 && interval_num<=8){
+                                me.doTakePhotos()
+                            }
                         },4000);
                     } else {
-                        alert('打开摄像头失败!')
+                        alert('打开摄像头失败!'+idInfo.msg)
                     }
-                    
                 })
             },
             openCamera(data, callback) {
@@ -288,7 +290,6 @@
                     callback(json)
                 }
                 window.external.Open_Camera(data, "openCamera_callback");
-
             },
             doTakePhotos() {
                 var me = this;
@@ -297,6 +298,8 @@
                     if (photoBean.status == 100) {
                         me.camearImg = photoBean.imgStr;
                         me.doFaceRecognition(photoBean.imgStr,me.user.img)
+                    }else{
+                        alert('照片抓取失败,'+photoBean.msg);
                     }
                 })
             },
@@ -316,7 +319,7 @@
                 me.Face_recognition(data1,
                     function (data) {
                         var info = JSON.parse(data);
-                        if(info.status >= 100){
+                        if(info.status == 100){
                             if(info.score>=0){
                                 window.external.Close_Camera("closeCamera_callback");
                                 // window.external.NotShow_Camera();
@@ -324,10 +327,12 @@
                                     window.soundPlayer11();
                                 },100)
                                 me.reading = true
+                                clearInterval(me.interval_key);
+                            }else{
+                                // alert('识别分数:'+info.score);
                             }
-                            clearInterval(me.interval_key);
                         }else{
-                            alert('拍照失败，请重试！');
+                            // alert('对比失败，联系管理员检查配置信息！');
                         }
                     }
                 )
