@@ -4,8 +4,8 @@
         <div class="print-license-content-wrap">
             <div class="plcw-left">
                 <div id="plcwl-box-preview-three" class="plcwl-box">
-                    <img class="img" style="position:absolute;z-index:6;top:0px;margin:auto;width:544px;height:770px;display:block" src="@/assets/print-preview-background-1.jpg" alt="">
-                    <img class="img" style="position:absolute;z-index:8;top:0px;margin:auto;width:544px;height:770px;display:block" :src="printImg" alt="">
+                    <img class="img" style="position:absolute;z-index:6;top:-340px;left:-110px;margin:auto;width:800px;display:block" src="@/assets/print-preview-background-1.jpg" alt="">
+                    <img class="img" style="position:absolute;z-index:8;top:-340px;left:-110px;margin:auto;width:800px;display:block" :src="printImg_preview" alt="">
                 </div>
             </div>
             <div class="plcw-right">
@@ -61,7 +61,8 @@
             //    }
             // })
             this.$http.post(itemUrl,itemOb).then(response => {
-                  this.printImg = response.data;
+                  this.printImg = response.data.imgForPrint;
+                  this.printImg_preview = response.data.imgForDisplay
             }, response => {
                 if(response.response.data && response.response.data.msg){
                    alert(response.response.data.msg) 
@@ -79,9 +80,12 @@
             //     toolbar: false,
             //   });
             // });
-            setTimeout(function(){
-                window.soundPlayer12();
-            },100)
+            // setTimeout(function(){
+                // window.soundPlayer12();
+            // },100)
+        },
+        beforeDestroy: function(){
+            window.external.listen_Stop()
         },
         methods: {
             goto (par) {
@@ -96,40 +100,36 @@
                 var receivedData = window.external.PrintStatus();
                 var info = JSON.parse(receivedData);
                 if (info.status == 100) {
-                    if (info.typecode < 256) {
-                        //正常状态
-                        switch (info.typecode) {
-                            case 0:
-                                // alert("就绪");
-                                this.print_picture()
-                                break;
-                            case 1:
-                                alert("正在打印，请稍后再试");
-                                break;
-                            case 2:
-                                alert("初始化中，请稍后再试");
-                                break;
-                            case 4:
-                                window.external.PrintWakeup();
-                                alert("睡眠，请稍后再试");
-                                break;
-                            case 100:
-                                alert("打印机缺纸，请联系管理员");
-                                break;
-                            case 200:
-                                alert("打印机缺墨，请联系管理员");
-                                break;
-                            case 400:
-                                alert("打印机卡纸，请联系管理员");
-                                break;
-                            case 800:
-                                alert("打印机仓门被打开，请联系管理员");
-                                break;    
-                        }
-                    }
-                    else {
-                        //异常状态
-                        alert(info.typeinfo);
+                    //正常状态
+                    switch (info.typecode) {
+                        case 0:
+                            // alert("就绪");
+                            this.print_picture()
+                            break;
+                        case 1:
+                            alert("正在打印，请稍后再试");
+                            break;
+                        case 2:
+                            alert("初始化中，请稍后再试");
+                            break;
+                        case 4:
+                            window.external.PrintWakeup();
+                            alert("打印机正在准备，请稍后再试");
+                            break;
+                        case 100:
+                            alert("打印机缺纸，请联系管理员");
+                            break;
+                        case 200:
+                            alert("打印机缺墨，请联系管理员");
+                            break;
+                        case 400:
+                            alert("打印机卡纸，请联系管理员");
+                            break;
+                        case 800:
+                            alert("打印机仓门被打开，请联系管理员");
+                            break;  
+                        default:
+                            alert(info.typeinfo);  
                     }
                 }
                 else if (info.status == 300) {
@@ -158,6 +158,9 @@
                     alert('暂未获取到营业执照相关信息！')
                     return
                 }
+                if(this.reading){
+                   return 
+                }
                 this.reading = true; 
                 var img3 = this.printImg.split(',')[1];
                 var photo = {
@@ -173,29 +176,15 @@
                     var info = JSON.parse(receivedData);
                     // alert(receivedData)
                     if (info.status == 100) {
-                        var itemOb = JSON.parse(me.$route.query.itemStr);
-                        me.$http.post('/licenses/printLog',{
-                            "bizId": itemOb.bizId,
-                            "bizType": me.$route.query.bizType,
-                            "equipmentId": window.equipmentID,
-                            "licenseType": 1,
-                            "printNum": 1,
-                            "printerId": me.$route.query.printerId,
-                            "result": 1
-                        }).then(response => {
-                            me.$router.push({ path:'/printLicense/print-success/true',query:{
-                                itemStr: me.$route.query.itemStr,
-                                printerId:  me.$route.query.printerId,
-                                bizType: me.$route.query.bizType
-                            }});
-                        }, response => {
-                            if(response.response.data && response.response.data.msg){
-                               alert(response.response.data.msg) 
-                            }  else {
-                                window.errorAlertInfo(response.stauts)
-                           }
+                        me.$router.push({ path: '/printLicense/print-ing/true',
+                            query:{
+                              itemStr: me.$route.query.itemStr,
+                              printerId:  me.$route.query.printerId,
+                              bizType: me.$route.query.bizType
+                            } 
                         })
                     } else {
+                        me.reading = false
                         alert(info.msg)
                     }
                     

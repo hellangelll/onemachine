@@ -17,6 +17,8 @@ import printStatusNoCompany from '../pages/printStatus/print-no-company'
 import printStatusNoLicense from '../pages/printStatus/print-no-license'
 import printStatusSuccess from '../pages/printStatus/print-success'
 import printStatusFail from '../pages/printStatus/print-fail'
+import printStatusIng from '../pages/printStatus/print-ing'
+import printStatusEnd from '../pages/printStatus/print-end'
 
 
 
@@ -47,6 +49,9 @@ const router = new Router({
         // 没有公司可供打印
         {path: '/printLicense/print-no-license', component: printStatusNoLicense, name: '没有营业执照打印', menuShow: true},
         {path: '/printLicense/print-success/:canPrint', component: printStatusSuccess, name: '打印成功', menuShow: true, props: true},
+        {path: '/printLicense/print-ing/:canPrint', component: printStatusIng, name: '正在打印', menuShow: true, props: true},
+        {path: '/printLicense/print-ing', component: printStatusIng, name: '正在打印', menuShow: true, props: true},
+        {path: '/printLicense/print-end', component: printStatusEnd, name: '打印结束', menuShow: true, props: true},
         {path: '/printLicense/print-success', component: printStatusSuccess, name: '打印成功', menuShow: true},
         {path: '/printLicense/print-fail', component: printStatusFail, name: '打印失败', menuShow: true}
       ]

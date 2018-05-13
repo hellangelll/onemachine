@@ -12,7 +12,12 @@
 </template>
 <script>
 export default {
+  beforeDestroy: function(){
+      window.external.listen_Stop()
+  },
   mounted(){
+    window.external.listen_Stop()
+    window.soundPlayer1();
     let me = this;
         let interval = window.setInterval(function() {
           if(me.$router.currentRoute.path !== '/printInfo'){

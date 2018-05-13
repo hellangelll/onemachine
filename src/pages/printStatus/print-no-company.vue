@@ -9,7 +9,7 @@
   export default {
     methods: {
       onClickBtn (){
-        
+        this.$router.push({ path: '/' })
       }
     }
   }

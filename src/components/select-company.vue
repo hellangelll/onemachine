@@ -7,12 +7,17 @@
             <div class="select-company-input-wrap">
                <input style="display:none;" class="select-company-input" placeholder="请输入公司名称进行搜索"/>
                <div style="display:none;" class="select-company-input-search-icon"></div> 
+               <span style="width:40%;float:left;font-size:24px;line-height:24px;margin-top:10px;color:#f8b435;text-align:center;">名称</span>
+               <span style="width:58%;float:right;font-size:24px;line-height:24px;margin-top:10px;color:#f8b435;text-align:center;">法定代表人/经营者</span>
             </div>
             <div class="select-company-list">
-                <p v-for="(item,index) in company" :class="['select-company-list-item',isActiveIndex ===index?'active':'']" :data-biz-id="item.bizId" :data-biz-type="item.Type" @click="onClickItem(item,index)">{{item.entityName}}</p>
+                <div v-for="(item,index) in company" :class="['select-company-list-item',isActiveIndex ===index?'active':'']" :data-biz-id="item.bizId" :data-biz-type="item.Type" @click="onClickItem(item,index)">
+                  {{item.entityName}}<span style="position:absolute;width:270px;text-align:center;right:100px;top:0">{{item.legalPerson}}</span>  
+                </div>
             </div>
             <p class="select-company-info">*以上公司执照可以在本机打印</p>
             <div class="select-company-ok" @click="openDialog"></div>
+            <div class="select-company-cancel" @click="closeMyselfpp"></div>
         </div>   
       </transition>
       <div class="select-company-dialog-cover"  v-if="isShowDialog" @click="closeMyselfDialog"></div>
@@ -21,7 +26,7 @@
         <div class="select-company-dialog-content">确认选择打印<span style="color:#fff9ab">{{company[isActiveIndex].entityName}}</span>的营业执照？</div>
         <div class="select-company-dialog-btn">
            <div class="select-company-dialog-ok" @click="onSelectItem"></div>
-           <div class="select-company-dialog-cancel" @click="closeMyselfDialog"></div> 
+           <div class="select-company-dialog-cancel" @click="closeMyselfDialogpp"></div> 
         </div>
       </div>
   </div>
@@ -50,6 +55,10 @@
         // this.$emit('on-do-something')
         // this.$emit('on-close')
       },
+      closeMyselfpp() {
+        this.$emit('on-do-something')
+        this.$emit('on-close')
+      },
       onSelectItem() {
         this.$emit('on-do-something')
         this.$emit('on-select',this.company[this.isActiveIndex],this.isActiveIndex)
@@ -61,6 +70,10 @@
       closeMyselfDialog() {
         // this.$emit('on-do-something')
         // this.isShowDialog = false;
+      },
+      closeMyselfDialogpp(){
+        this.$emit('on-do-something')
+        this.isShowDialog = false;
       },
       openDialog() {
         this.$emit('on-do-something')
@@ -178,14 +191,15 @@
     overflow-y: scroll;
   }
   .select-company-list-item {
-    padding: 8px 22px;
+    padding: 8px 80px;
     margin: 0;
     color: #9cc2ff;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 38px;
     transform: scale(0.85);
     -webkit-transform: scale(0.85);
     margin-left: -85px;
+    position: relative;
   }
   .select-company-list-item.active {
         background-color: #0763d6;
@@ -208,6 +222,18 @@
     cursor: pointer;
     margin-top: 48px;
     margin-left: 80px;
+    float: left;
+  }
+  .select-company-cancel {
+    background-image: url('../assets/select-company/select-company-cancel.jpg');
+    background-size: 297px 63px;
+    background-repeat: no-repeat;
+    width: 297px;
+    height: 63px;
+    cursor: pointer;
+    margin-top: 48px;
+    margin-right: 80px;
+    float: right;
   }
   .select-company-dialog-cover {
     background: #000;

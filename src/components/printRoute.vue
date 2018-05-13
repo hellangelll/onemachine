@@ -32,6 +32,9 @@
 
 <script>
 export default {
+  beforeDestroy: function(){
+             window.external.listen_Stop()
+  },
   mounted(){
         let me = this;
         let interval = window.setInterval(function() {

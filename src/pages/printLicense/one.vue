@@ -44,6 +44,7 @@
             }
         },
         beforeDestroy: function(){
+             window.external.listen_Stop()
             clearInterval(this.interval_key);
         },
         mounted: function(){

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>一体机</title>
-    <link rel="stylesheet" href="./dist/viewer.css">
+    <!-- <link rel="stylesheet" href="./dist/viewer.css"> -->
     <link rel="stylesheet" href="./swiper/css/swiper.css">
     <style>
     body{
@@ -25,28 +25,15 @@
         z-index: 10000;
         display: none;
       }
-      #corver_wrap::after {
-        -webkit-animation: viewer-spinner 1s linear infinite;
-        animation: viewer-spinner 1s linear infinite;
-        border: 8px solid rgba(255, 255, 255, .3);
-        border-left-color: rgba(255, 255, 255);
-        border-radius: 50%;
-        content: '';
-        display: inline-block;
-        height: 80px;
-        left: 50%;
-        margin-left: -20px;
-        margin-top: -20px;
-        position: absolute;
-        top: 50%;
-        width: 80px;
-        z-index: 10000;
-    }
     </style>
   </head>
   <body style="transform: scale(1) translate(0,0);">
     <div id="app"></div>
-    <div id="corver_wrap"></div>
+    <div id="corver_wrap">
+      <img style="margin: auto;
+    display: block;
+    margin-top: 500px;" src="./jiazaidongh.gif">
+    </div>
     <!-- built files will be auto injected -->
   </body>
   <script>
@@ -102,6 +89,22 @@
       window.external.soundPlayer_stop();
   		window.external.soundPlayer('12.wav');
   	}
+    var soundPlayer13 = function(){
+      window.external.soundPlayer_stop();
+      window.external.soundPlayer('13.wav');
+    }
+    var soundPlayer14 = function(){
+      window.external.soundPlayer_stop();
+      window.external.soundPlayer('14.wav');
+    }
+    var soundPlayer15 = function(){
+      window.external.soundPlayer_stop();
+      window.external.soundPlayer('15.wav');
+    }
+    var soundPlayer16 = function(){
+      window.external.soundPlayer_stop();
+      window.external.soundPlayer('16.wav');
+    }
   	var soundPlayer17 = function(){
       window.external.soundPlayer_stop();
   		window.external.soundPlayer('17.wav');

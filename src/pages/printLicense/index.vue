@@ -23,6 +23,9 @@
         components: {
             Header
         },
+        beforeDestroy: function(){
+             window.external.listen_Stop()
+        },
         mounted(){
             let me = this;
             let oldPath = '';
