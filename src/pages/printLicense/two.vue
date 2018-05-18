@@ -18,7 +18,7 @@
             </div>
             <div class="plcw-right">
                 <div v-if="!reading" class="plcw-wrap">
-                    <p style="position:absolute;top:-30px;font-size:20px;color:red;text-align: center;width:100%;">{{showFaceInfo}}</p>
+                    <p style="position:absolute;top:-80px;font-size:30px;color:red;text-align: center;width:100%;">{{showFaceInfo}}</p>
                     <p class="plcw-box-title">请对准摄像头进行动态视频拍摄  </p>
                     <div class="plcw-box-pic">
                         <p class="plcw-box-pic-staus" style="visibility: hidden;">认证失败！</p>
@@ -232,8 +232,8 @@
             },
             camear2() {
                 var me = this;
-                // var layout={'openType':0,'layoutX': 1198.5,'layoutY': 388,'layoutWidth': 358,'layoutHeight': 358,'choiceCamera':0,'addGrid':1};
-                var layout={'openType':1,'layoutX': 1217,'layoutY': 390,'layoutWidth': 379,'layoutHeight': 379,'choiceCamera':0,'addGrid':1,"bgStyle":1};
+                // var layout={'openType':1,'layoutX': 298.5,'layoutY': 588,'layoutWidth': 165,'layoutHeight': 179,'choiceCamera':0,'addGrid':1};
+                var layout={'openType':1,'layoutX': 1217,'layoutY': 390,'layoutWidth': 265,'layoutHeight': 379,'choiceCamera':0,'addGrid':1,"bgStyle":1};
 
                 var jsonlayout=JSON.stringify(layout);
                 window.external.Show_Camera();

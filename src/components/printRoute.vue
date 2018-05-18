@@ -37,7 +37,7 @@ export default {
   },
   mounted(){
         let me = this;
-        window.clearInterval(interval_pp);
+        window.clearInterval(me.interval_pp);
         me.interval_pp = window.setInterval(function() {
           if(me.$router.currentRoute.path !== '/'){
             window.clearInterval(me.interval_pp);
