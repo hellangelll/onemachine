@@ -1,8 +1,6 @@
 <template>
   <div id="print-success">
-    <!-- <img class="print-status" src="@/assets/print-status/print-success.jpg"> -->
-    <img class="print-status" src="">
-    <p  style="color:red;font-size:30px;text-align:center">请确认已取走，请确认已取走</p>
+    <img class="print-status" src="@/assets/print-status/print-end.jpg">
     <img class="print-status-btn" src="@/assets/print-status/print-ok.png" @click="onClickBtn" alt="">
   </div>
 </template>

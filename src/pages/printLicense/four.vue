@@ -117,6 +117,10 @@
                 
             },
             print() {
+                if(!this.printImg){
+                    alert('未获取到营业执照信息')
+                    return
+                }
                 var receivedData = window.external.PrintStatus();
                 var info = JSON.parse(receivedData);
                 if (info.status == 100) {
@@ -137,16 +141,19 @@
                                 alert("打印机正在准备，请稍后再试");
                                 break;
                             case 100:
-                                alert("打印机缺纸，请联系管理员");
+                                window.soundPlayer21()
+                                alert("打印机缺纸，请联系工作人员，谢谢！");
                                 break;
                             case 200:
-                                alert("打印机缺墨，请联系管理员");
+                                window.soundPlayer20()
+                                alert("打印机缺墨，请联系工作人员，谢谢！");
                                 break;
                             case 400:
-                                alert("打印机卡纸，请联系管理员");
+                                window.soundPlayer22()
+                                alert("打印机卡纸，请联系工作人员，谢谢！");
                                 break;
                             case 800:
-                                alert("打印机仓门被打开，请联系管理员");
+                                alert("打印机仓门被打开，请联系工作人员，谢谢！");
                                 break;  
                             default:
                                 alert(info.typeinfo);
@@ -173,11 +180,11 @@
             },
             print_picture() {
                 var me = this;
-                if(!this.printImg){
-                    this.reading = false;
-                    alert('暂未获取到需要打印的图片')
-                    return
-                }
+                // if(!this.printImg){
+                //     this.reading = false;
+                //     alert('未获取到营业执照信息')
+                //     return
+                // }
                 if(this.reading){
                    return 
                 }

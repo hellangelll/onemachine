@@ -33,17 +33,18 @@
 <script>
 export default {
   beforeDestroy: function(){
-             window.external.listen_Stop()
+          window.external.listen_Stop()
   },
   mounted(){
         let me = this;
-        let interval = window.setInterval(function() {
+        window.clearInterval(interval_pp);
+        me.interval_pp = window.setInterval(function() {
           if(me.$router.currentRoute.path !== '/'){
-            window.clearInterval(interval);
+            window.clearInterval(me.interval_pp);
           }
           if ((me.sec--) <= 0) {
             window.hideLoding();
-            window.clearInterval(interval);
+            window.clearInterval(me.interval_pp);
             // me.$router.push('/');
             me.swiperHide = 'visible';
             var mySwiper = new Swiper('.swiper-container',{
@@ -59,24 +60,84 @@ export default {
         setTimeout(function(){
           window.soundPlayer1();
         },1200)
-         this.$http.get('common/errors').then(data => {
+        this.$http.get('common/errors').then(data => {
             if(data.status == 200){
                 window.__common_errors = data.data;
             }
         })
 
-        if(!window.equipmentID){
-          var equipmentInfo = window.external.GetPcInfo();
-          equipmentInfo = JSON.parse(equipmentInfo);
-          window.equipmentID = equipmentInfo.MAC[0];
-          // this.$http.post('/equipments?equipmentId='+window.equipmentID)
+        window.getPrintStatus_callback = function(receivedData){
+          var data = JSON.parse(receivedData);
+          if (data.status == 100) {
+              var breakdown = 1;
+              switch (data.printerstatus.typecode) {
+                  case 100:
+                      breakdown = -3;
+                      break;
+                  case 200:
+                      breakdown = -2;
+                      break;
+                  case 400:
+                      breakdown = -1;
+                      break;
+              }
+              var ink = data.toner.toner;
+              var paper = data.printsum.printsum;
+
+              var equipmentInfo = window.external.GetPcInfo();
+              equipmentInfo = JSON.parse(equipmentInfo);
+              var M_TagStr = equipmentInfo.M_Tag;
+              var M_Tag;
+              try {
+                M_Tag =  JSON.parse(M_TagStr.replace(/\'/g,'"'));
+                M_Tag.breakdown = breakdown;
+                M_Tag.ink = ink;
+                M_Tag.paper = paper;
+                // M_Tag.
+                this.$http.post('/equipments/upload',M_Tag)
+              } catch(e){
+
+              }
+          }
         }
-          window.equipmentID = "TESTBBBBBBB1"
+        if(!window.equipmentID){
+            var equipmentInfo = window.external.GetPcInfo();
+            equipmentInfo = JSON.parse(equipmentInfo);
+            var M_TagStr = equipmentInfo.M_Tag;
+              try {
+
+              var M_Tag =  JSON.parse(M_TagStr.replace(/\'/g,'"'));
+              window.equipmentID = M_Tag.equipmentId;
+              window.external.PrintInfo("getPrintStatus_callback")
+             } catch(e){
+
+              }
+        }
+
+
+
+
+        // if(!window.equipmentID){
+        //   var equipmentInfo = window.external.GetPcInfo();
+        //   equipmentInfo = JSON.parse(equipmentInfo);
+        //   var M_TagStr = equipmentInfo.M_Tag;
+        //   var M_Tag;
+        //   try {
+        //     M_Tag =  JSON.parse(M_TagStr);
+        //     // M_Tag.
+        //     this.$http.post('/equipments/upload',M_Tag)
+
+        //   } catch(e){
+
+        //   }
+        // }
   },
   data(){
     return {
       sec:120,
-      swiperHide: 'hidden'
+      swiperHide: 'hidden',
+      interval_pp: '',
+      interval_pp1: ''
     }
   },
   methods: {
@@ -87,13 +148,14 @@ export default {
       var me = this;
       this.swiperHide = 'hidden';
       this.sec =120;
-      let interval = window.setInterval(function() {
+      window.clearInterval(me.interval_pp1);
+      me.interval_pp1 = window.setInterval(function() {
           if(me.$router.currentRoute.path !== '/'){
-            window.clearInterval(interval);
+            window.clearInterval(me.interval_pp1);
           }
           if ((me.sec--) <= 0) {
             window.hideLoding();
-            window.clearInterval(interval);
+            window.clearInterval(me.interval_pp1);
             // me.$router.push('/');
             me.swiperHide = 'visible';
             var mySwiper = new Swiper('.swiper-container',{

@@ -1,9 +1,6 @@
 <template>
   <div id="print-ing">
-    <!-- <img class="print-status" src="@/assets/print-status/print-success.jpg"> -->
-    <img class="print-status" src="">
-    <p style="color:red;font-size:30px;margin:auto;text-align:center">正在打印中</p>
-    <!-- <img class="print-status-btn" src="@/assets/print-status/print-ok.png" @click="onClickBtn" alt=""> -->
+    <img class="print-status" src="@/assets/print-status/print-ing.jpeg">
   </div>
 </template>
 
