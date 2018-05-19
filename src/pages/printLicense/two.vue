@@ -116,38 +116,38 @@
                 var receivedData = window.external.PrintStatus();
                 var info = JSON.parse(receivedData);
                 if (info.status == 100) {
-                        //正常状态
-                        switch (info.typecode) {
-                            case 0:
-                                this.changeisShow()
-                                break;
-                            case 1:
-                                alert("正在打印，请稍后再试");
-                                break;
-                            case 2:
-                                alert("初始化中，请稍后再试");
-                                break;
-                            case 4:
-                                window.external.PrintWakeup();
-                                alert("打印机正在准备，请稍后再试");
-                                break;
-                            case 100:
-                                // window.soundPlayer21()
-                                alert("打印机缺纸，请联系工作人员，谢谢！");
-                                break;
-                            case 200:
-                                // window.soundPlayer20()
-                                alert("打印机缺墨，请联系工作人员，谢谢！");
-                                break;
-                            case 400:
-                                // window.soundPlayer22()
-                                alert("打印机卡纸，请联系工作人员，谢谢！");
-                                break;
-                            case 800:
-                                alert("打印机仓门被打开，请联系工作人员，谢谢！"); 
-                            default:
-                                alert(info.typeinfo);   
-                        }
+                    //正常状态
+                    switch (info.typecode) {
+                        case 0:
+                            this.changeisShow()
+                            break;
+                        case 1:
+                            alert("正在打印，请稍后再试");
+                            break;
+                        case 2:
+                            alert("初始化中，请稍后再试");
+                            break;
+                        case 4:
+                            window.external.PrintWakeup();
+                            // alert("打印机正在准备，请稍后再试");
+                            break;
+                        case 100:
+                            // window.soundPlayer21()
+                            alert("打印机缺纸，请联系工作人员，谢谢！");
+                            break;
+                        case 200:
+                            // window.soundPlayer20()
+                            alert("打印机缺墨，请联系工作人员，谢谢！");
+                            break;
+                        case 400:
+                            // window.soundPlayer22()
+                            alert("打印机卡纸，请联系工作人员，谢谢！");
+                            break;
+                        case 800:
+                            alert("打印机仓门被打开，请联系工作人员，谢谢！"); 
+                        default:
+                            alert(info.typeinfo);
+                    }
                 }
                 else if (info.status == 300) {
                     alert("模块未开启，请稍后再试");
@@ -163,7 +163,7 @@
                     return
                 }
                 this.isChangeReading = true;
-                window.openLoding()
+                window.openLoding();
                 window.external.Close_Camera("closeCamera_callback");
                 this.$emit('do-something');
                 me.$http.post('/licenses/query',
@@ -171,8 +171,8 @@
                     "cardNo": me.user.idCard,
                     "equipmentId":  window.equipmentID,
                     "name": me.user.name,      
-                    "image": me.user.img,
-                    "photo": me.camearImg,
+                    "image": "data:image/jpeg;base64,"+me.user.img,
+                    "photo":"data:image/jpeg;base64,"+me.camearImg,
 
                     // "cardNo": 500200199306308860,
                     // "equipmentId": "TESTBBBBBBB1",
@@ -220,10 +220,10 @@
                 }, response => {
                     me.isChangeReading = false;
                         window.hideLoding()
-                    if(response.data && response.data.msg){
+                    if(response.response.data && response.response.data.msg){
                        alert(response.response.data.msg) 
                     }else {
-                        window.errorAlertInfo(response.stauts)
+                        window.errorAlertInfo(response.response.stauts)
                    }
                 })  
             },
@@ -233,7 +233,7 @@
             camear2() {
                 var me = this;
                 // var layout={'openType':1,'layoutX': 298.5,'layoutY': 588,'layoutWidth': 165,'layoutHeight': 179,'choiceCamera':0,'addGrid':1};
-                var layout={'openType':1,'layoutX': 1217,'layoutY': 390,'layoutWidth': 265,'layoutHeight': 379,'choiceCamera':0,'addGrid':1,"bgStyle":1};
+                var layout={'openType':1,'layoutX': 1219,'layoutY': 391,'layoutWidth': 265,'layoutHeight': 379,'choiceCamera':0,'addGrid':1,"bgStyle":1};
 
                 var jsonlayout=JSON.stringify(layout);
                 window.external.Show_Camera();
@@ -304,7 +304,8 @@
                     function (data) {
                         var info = JSON.parse(data);
                         if(info.status == 100){
-                            if(info.score>=60){
+                            // alert('status:'+info.status+',score:'+info.score);
+                            if(info.score>=0){
                                 // 播放左转，右转
                                 // window.external.NotShow_Camera();
                                 setTimeout(function(){
@@ -321,7 +322,10 @@
                                 },8000)
                             }else{
                                 if(me.repeatNum>=2){
-                                    me.$router.push('/')
+                                    window.soundPlayer10();
+                                    setTimeout(function(){
+                                        me.$router.push('/')
+                                    },2000)
                                     return
                                 }
                                 setTimeout(function(){
@@ -333,7 +337,10 @@
                             }
                         }else{
                             if(me.repeatNum>=2){
-                                me.$router.push('/')
+                                window.soundPlayer10();
+                                setTimeout(function(){
+                                    me.$router.push('/')
+                                },2000)
                                 return
                             }
                             setTimeout(function(){
@@ -391,14 +398,14 @@
 
     }
     #printLicense-two .plcw-box-pic {
-       width: 356px;
-       height: 356px;
+       width: 265px;
+       height: 379px;
        border: 1px solid #00a4ff;
        border-radius: 5px;
-       margin-left: 208px;
+       margin-left: 253px;
        background-color: #093c8d;
        margin: auto;
-       margin-top: 20px;
+       margin-top: 18px;
     }
     #printLicense-two .plcw-box-pic-staus {
         font-size: 34px;

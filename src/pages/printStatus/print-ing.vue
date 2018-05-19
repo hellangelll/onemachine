@@ -57,7 +57,7 @@
               if(response.response.data && response.response.data.msg){
                  alert(response.response.data.msg) 
               }  else {
-                  window.errorAlertInfo(response.stauts)
+                  window.errorAlertInfo(response.response.stauts)
              }
           })
       }

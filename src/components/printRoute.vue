@@ -105,17 +105,12 @@ export default {
             equipmentInfo = JSON.parse(equipmentInfo);
             var M_TagStr = equipmentInfo.M_Tag;
               try {
-
-              var M_Tag =  JSON.parse(M_TagStr.replace(/\'/g,'"'));
-              window.equipmentID = M_Tag.equipmentId;
-              window.external.PrintInfo("getPrintStatus_callback")
+                var M_Tag =  JSON.parse(M_TagStr.replace(/\'/g,'"'));
+                window.equipmentID = M_Tag.equipmentId;
+                window.external.PrintInfo("getPrintStatus_callback")
              } catch(e){
-
-              }
+          }
         }
-
-
-
 
         // if(!window.equipmentID){
         //   var equipmentInfo = window.external.GetPcInfo();

@@ -67,7 +67,7 @@
                 if(response.response.data && response.response.data.msg){
                    alert(response.response.data.msg) 
                 }  else {
-                    window.errorAlertInfo(response.stauts)
+                    window.errorAlertInfo(response.response.stauts)
                }
             })
             
@@ -179,8 +179,8 @@
                 };
                 var data = JSON.stringify(photo);
                 me.printBitmap(data, function (receivedData) {
+                    alert('receivedData:'+receivedData)                    
                     var info = JSON.parse(receivedData);
-                    // alert(receivedData)
                     if (info.status == 100) {
                         me.$router.push({ path: '/printLicense/print-ing/true',
                             query:{
@@ -191,7 +191,7 @@
                         })
                     } else {
                         me.reading = false
-                        alert(info.msg)
+                        alert('printBitmap:'+info.msg)
                     }
                     
                 });
