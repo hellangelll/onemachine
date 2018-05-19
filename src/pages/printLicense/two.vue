@@ -325,7 +325,8 @@
                     if(me.repeatNum>=2){
                         window.soundPlayer10();
                         setTimeout(function(){
-                            me.$router.push('/')
+                            // me.$router.push('/')
+                            window.refreshView();
                         },2000)
                         return
                     }
