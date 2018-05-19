@@ -45,10 +45,10 @@ export default {
             var arr = data.papertrays;
             var arrLength = arr.length;
              for(var i=0; i<arrLength; i++){
-                if(arrLength[i].trayid == '1'){
-                  window.localStorage['print_111_status'] = arrLength[i].havepaper;
-                } else if(arrLength[i].trayid == '5') {
-                  window.localStorage['print_555_status'] = arrLength[i].havepaper;
+                if(arr[i].trayid == '1'){
+                  window.localStorage['print_111_status'] = arr[i].havepaper;
+                } else if(arr[i].trayid == '5') {
+                  window.localStorage['print_555_status'] = arr[i].havepaper;
                 }
              }
               
