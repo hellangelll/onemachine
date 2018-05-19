@@ -101,7 +101,7 @@
                     alert('未获取到营业执照信息')
                     return
                 }
-                if(window.localStorage['print_111_status'] == '0'){
+                if(window.localStorage['print_111_status'] == '0' || window.localStorage['print_555_status'] == '0'){
                     alert('打印机缺纸，请联系工作人员，谢谢！')
                     // this.$router.push('/');
                     window.refreshView();
