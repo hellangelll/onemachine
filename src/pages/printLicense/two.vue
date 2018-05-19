@@ -280,6 +280,7 @@
                     window.clearTimeout(me.tt5)
                     window.external.soundPlayer_stop();
                     me.$emit('do-something');
+                    me.showFaceInfo = '';
 
                     me.printerId = response.data.printerId;
                     // me.company = response.data.licenseInfoList;
@@ -311,6 +312,7 @@
                     window.clearTimeout(me.tt5)
                     window.external.soundPlayer_stop();
                     me.$emit('do-something');
+                    me.showFaceInfo = '';
                     // window.hideLoding()
                     if(response.response.data && response.response.data.msg){
                        alert(response.response.data.msg) 

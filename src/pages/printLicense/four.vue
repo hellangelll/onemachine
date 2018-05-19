@@ -203,7 +203,7 @@
 
                 var data = JSON.stringify(photo);
                 me.printBitmap(data, function (receivedData) {
-                    alert('receivedData:'+receivedData)
+                    // alert('receivedData:'+receivedData)
                     var info = JSON.parse(receivedData);
                     if (info.status == 100) {
                         me.$router.push({ path: '/printLicense/print-ing',
