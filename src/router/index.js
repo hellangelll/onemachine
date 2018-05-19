@@ -70,7 +70,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
- if(to.path == '/'){
+ if(to.path == '/' && from.path != '/'){
   window.external.clear_cache();
   setTimeout(function(){
     window.location.href = 'http://47.98.190.216'
