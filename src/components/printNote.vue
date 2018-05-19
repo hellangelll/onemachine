@@ -36,7 +36,26 @@ export default {
             me.$router.push('/');
           }
         }, 1000);
-        
+
+        window.localStorage['print_555_status'] = '';
+        window.localStorage['print_111_status'] = '';
+        window.getPrintStatus_callback_toPrint = function(receivedData){
+          var data = JSON.parse(receivedData);
+          if (data.status == 100) {
+            var arr = data.papertrays;
+            var arrLength = arr.length;
+             for(var i=0; i<arrLength; i++){
+                if(arrLength[i].trayid == '1'){
+                  window.localStorage['print_111_status'] = arrLength[i].havepaper;
+                } else if(arrLength[i].trayid == '5') {
+                  window.localStorage['print_555_status'] = arrLength[i].havepaper;
+                }
+             }
+              
+          }
+        }
+        window.external.PrintInfo("getPrintStatus_callback_toPrint")
+
   },
   data(){
     return {
