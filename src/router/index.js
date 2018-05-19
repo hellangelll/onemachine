@@ -69,16 +69,16 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
- if(to.path == '/' && from.path != '/'){
-  window.external.clear_cache();
-  setTimeout(function(){
-    window.location.href = 'http://47.98.190.216'
-  },0)
-  return
- }
- next() // 千万不要忘了，否则导航会被“掐死”在这儿。:-D
-})
+// router.beforeEach((to, from, next) => {
+//  if(to.path == '/' && from.path != '/'){
+//   window.external.clear_cache();
+//   setTimeout(function(){
+//     window.location.href = 'http://47.98.190.216'
+//   },0)
+//   return
+//  }
+//  next() // 千万不要忘了，否则导航会被“掐死”在这儿。:-D
+// })
 
 
 export default router
