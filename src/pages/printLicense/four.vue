@@ -122,7 +122,7 @@
                     return
                 }
                 var receivedData = window.external.PrintStatus();
-                // var info = JSON.parse(receivedData);
+                var info = JSON.parse(receivedData);
                 if (info.status == 100) {
                         //正常状态
                         switch (info.typecode) {
