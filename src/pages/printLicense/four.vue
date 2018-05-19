@@ -122,7 +122,7 @@
                     return
                 }
                 var receivedData = window.external.PrintStatus();
-                var info = JSON.parse(receivedData);
+                // var info = JSON.parse(receivedData);
                 if (info.status == 100) {
                         //正常状态
                         switch (info.typecode) {
@@ -222,7 +222,7 @@
 
             },
             printBitmap(data, callback) {
-                window.printBitmap_callback = function(){
+                window.printBitmap_callback = function(data){
                     callback(data)
                 };
                 window.external.PrintBitmap(data, "printBitmap_callback");

@@ -18,7 +18,7 @@
         var interval = window.setInterval(function() {
             var receivedData = window.external.PrintStatus();
             var info = JSON.parse(receivedData);
-            alert(receivedData)
+            // alert(receivedData)
             if (info.status == 100) {
                 if(info.typecode != 1){
                   clearInterval(interval);
