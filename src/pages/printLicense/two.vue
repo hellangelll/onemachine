@@ -121,6 +121,8 @@
                 this.repeatCheckFace()
             },
             changeisShowBefore (){
+
+
                 var receivedData = window.external.PrintStatus();
                 var info = JSON.parse(receivedData);
                 if (info.status == 100) {
@@ -137,6 +139,7 @@
                             break;
                         case 4:
                             window.external.PrintWakeup();
+                            this.changeisShow()
                             // alert("打印机正在准备，请稍后再试");
                             break;
                         case 100:
