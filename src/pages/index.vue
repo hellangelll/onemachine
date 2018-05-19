@@ -15,9 +15,6 @@
         components: {
             Header,
             PrintRoute
-        },
-        mounted: function(){
-            window.external.clear_cache();
         }
     }
 </script>
