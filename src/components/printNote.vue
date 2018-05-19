@@ -71,7 +71,12 @@ export default {
       this.$router.push({ path: par })
     },
     back () {
-      this.$router.back(-1)
+      // this.$router.back(-1)
+        window.external.clear_cache();
+        setTimeout(function(){
+          window.location.href = 'http://47.98.190.216'
+        },0)
+
     }
   }
 }
