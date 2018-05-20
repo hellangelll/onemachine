@@ -15,7 +15,8 @@
                     <div class="plcwr-content">
                         <span :class="['plcwr-content-item',item.enable?'':'unable',activeLicenseIndex === index ? 'active':'']" v-for="(item,index) in license" :data-value="item.key" @click="clickItem(item,index)">{{item.value}}</span>
                     </div>
-                    <img v-if="!reading"  class="plcwr-next" style="cursor: pointer;" @click="onPrint" src="@/assets/print-licence-other.png" alt="">
+                    <img v-if="!printImg" class="plcwr-next" style="cursor: pointer;" src="/assets/print-licence-other-ing.png" alt="">
+                    <img v-else-if="!reading"  class="plcwr-next" style="cursor: pointer;" @click="onPrint" src="@/assets/print-licence-other.png" alt="">
                     <img v-else class="plcwr-next" src="@/assets/print-licence-other-ing.png" alt="">
             </div>
         </div>

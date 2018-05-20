@@ -13,7 +13,8 @@
                 <div v-if="!reading">
                     <p class="plcwr-text">打印营业执照正本</p>
                     <div>
-                        <img class="plcwr-next" style="cursor: pointer;" @click="onPrint" src="@/assets/print-licence-main.png" alt="">
+                        <img v-if="printImg" class="plcwr-next" style="cursor: pointer;" @click="onPrint" src="@/assets/print-licence-main.png" alt="">
+                        <img v-else class="plcwr-next" style="cursor: pointer;" src="@/assets/print-licence-main-ing.png" alt="">
                     </div>
                 </div>
                 <div v-else>

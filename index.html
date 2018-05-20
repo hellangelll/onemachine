@@ -143,6 +143,13 @@
         alert('异常错误')
     }
 
+    var refreshView = function(){
+        window.external.clear_cache();
+        setTimeout(function(){
+          window.location.href = 'http://47.98.190.216'
+        },0)
+    }
+
 
   </script>
  <!--  // <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
