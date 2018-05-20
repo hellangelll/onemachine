@@ -12,10 +12,10 @@
   </div>
   <div class="gg">
     <ul style="list-style-type:none;">
-      <li>营业执照当日(正本)打印: 188 份</li>
-      <li>营业执照当日(副本)打印: 188 份</li>
-      <li>营业执照累计(副本)打印:3568份</li>
-      <li>营业执照累计(正本)打印:3889份</li>
+      <li>营业执照当日(正本)打印: {{original}} 份</li>
+      <li>营业执照当日(副本)打印: {{copy}} 份</li>
+      <li>营业执照累计(副本)打印: {{copyTotal}} 份</li>
+      <li>营业执照累计(正本)打印: {{originalTotal}} 份</li>
     </ul>
   </div>
   <div class="yyzz-btn" @click="printInfo('printInfo')"></div>
@@ -34,6 +34,26 @@
 export default {
   beforeDestroy: function(){
           window.external.listen_Stop()
+  },
+  created(){
+    var me = this;
+    var equipmentInfo = window.external.GetPcInfo();
+    equipmentInfo = JSON.parse(equipmentInfo);
+    var M_TagStr = equipmentInfo.M_Tag;
+    var M_Tag;
+    try {
+      M_Tag =  JSON.parse(M_TagStr.replace(/\'/g,'"'));
+      me.$http.get('/logs/iac?iacCode='+M_Tag.iacCode).then( data => {
+        if(data.status == 200){
+          me.copy = data.data.copy;
+          me.copyTotal = data.data.copyTotal;
+          me.original = data.data.original;
+          me.originalTotal = data.data.originalTotal;
+        }
+      })
+    } catch(e){
+
+    }
   },
   mounted(){
         let me = this;
@@ -60,7 +80,7 @@ export default {
         setTimeout(function(){
           window.soundPlayer1();
         },1200)
-        this.$http.get('common/errors').then(data => {
+        this.$http.get('/common/errors').then(data => {
             if(data.status == 200){
                 window.__common_errors = data.data;
             }
@@ -132,7 +152,11 @@ export default {
       sec:120,
       swiperHide: 'hidden',
       interval_pp: '',
-      interval_pp1: ''
+      interval_pp1: '',
+      copy: '--',
+      copyTotal: '--',
+      original: '--',
+      originalTotal: '--'
     }
   },
   methods: {
