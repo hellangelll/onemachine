@@ -101,9 +101,8 @@ export default {
                       breakdown = -1;
                       break;
               }
-              var ink = data.toner.toner;
+              var ink = data.toner.toners[0].toner;
               var paper = data.printsum.printsum;
-
               var equipmentInfo = window.external.GetPcInfo();
               equipmentInfo = JSON.parse(equipmentInfo);
               var M_TagStr = equipmentInfo.M_Tag;
@@ -112,9 +111,12 @@ export default {
                 M_Tag =  JSON.parse(M_TagStr.replace(/\'/g,'"'));
                 M_Tag.breakdown = breakdown;
                 M_Tag.ink = ink;
+                if(paper>100){
+                  paper = 100;
+                }
                 M_Tag.paper = paper;
                 // M_Tag.
-                this.$http.post('/equipments/upload',M_Tag)
+                me.$http.post('/equipments/upload',M_Tag)
               } catch(e){
 
               }

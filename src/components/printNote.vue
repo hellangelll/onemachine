@@ -7,7 +7,7 @@
   <img class="img" style="top:428px;left:1350px;" src="../assets/guidance.png" alt="">
   <img class="img" style="top:810px;left:720px;" @click="gotoOne" src="../assets/btn_next.png" alt="">
   <img class="img" style="top:740px;left:1780px;" @click="back()" src="../assets/btn_return.png" alt="返回">
-  <img class="img" style="top:880px;left:1780px;" @click="window.refreshView()" src="../assets/btn_leave.png" alt="退出">
+  <img class="img" style="top:880px;left:1780px;" @click="refreshView()" src="../assets/btn_leave.png" alt="退出">
 </div>
 </template>
 <script>
@@ -75,6 +75,9 @@ export default {
       // this.$router.back(-1)
         window.refreshView();
 
+    },
+    refreshView (){
+        window.refreshView();
     }
   }
 }

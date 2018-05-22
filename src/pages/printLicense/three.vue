@@ -1,6 +1,6 @@
 <template>
     <div id="printLicense-three">
-        <img style="margin-top:6px; margin-left:2px;height:160px;display: inline-block;" src="@/assets/printLicense_nav_3.jpg" alt="">
+        <img style="margin-top:6px; margin-left:2px;height:160px;display: inline-block;" src="" alt="">
         <div class="print-license-content-wrap">
             <div class="plcw-left">
                 <div id="plcwl-box-preview-three" class="plcwl-box">

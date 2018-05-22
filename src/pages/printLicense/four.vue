@@ -1,6 +1,6 @@
 <template>
     <div id="printLicense-four">
-        <img style="margin-top:6px; margin-left:2px;height:160px;display: inline-block;" src="@/assets/printLicense_nav_3.jpg" alt="">
+        <img style="margin-top:6px; margin-left:2px;height:160px;display: inline-block;" src="" alt="">
         <div class="print-license-content-wrap">
             <div class="plcw-left">
                 <div id="plcwl-box-preview-four" class="plcwl-box">
@@ -15,7 +15,7 @@
                     <div class="plcwr-content">
                         <span :class="['plcwr-content-item',item.enable?'':'unable',activeLicenseIndex === index ? 'active':'']" v-for="(item,index) in license" :data-value="item.key" @click="clickItem(item,index)">{{item.value}}</span>
                     </div>
-                    <img v-if="!printImg" class="plcwr-next" style="cursor: pointer;" src="/assets/print-licence-other-ing.png" alt="">
+                    <img v-if="!printImg" class="plcwr-next" style="cursor: pointer;" src="@/assets/print-licence-other-ing.png" alt="">
                     <img v-else-if="!reading"  class="plcwr-next" style="cursor: pointer;" @click="onPrint" src="@/assets/print-licence-other.png" alt="">
                     <img v-else class="plcwr-next" src="@/assets/print-licence-other-ing.png" alt="">
             </div>

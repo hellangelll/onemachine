@@ -12,7 +12,7 @@
           </div>
             <div class="count-down">{{sec}}</div>
             <img class="img" style="top:740px;left:1780px;" @click="back()" src="@/assets/btn_return.png" alt="返回">
-            <img class="img" style="top:880px;left:1780px;" @click="window.refreshView()" src="@/assets/btn_leave.png" alt="退出">
+            <img class="img" style="top:880px;left:1780px;" @click="refreshView()" src="@/assets/btn_leave.png" alt="退出">
         </div>
     </div>
 </template>
@@ -67,6 +67,9 @@
             },
             changeSec (){
               this.sec = 120;
+            },
+            refreshView (){
+              window.refreshView()
             }
         }
     }
