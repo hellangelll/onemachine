@@ -160,7 +160,7 @@
                         case 800:
                             alert("打印机仓门被打开，请联系工作人员，谢谢！"); 
                         default:
-                            alert(info.typeinfo);
+                            alert('打印机：'+info.typeinfo);
                     }
                 }
                 else if (info.status == 300) {
