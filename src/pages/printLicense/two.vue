@@ -353,6 +353,7 @@
                 } else if(this.httpStatus == 'error'){
                     alert(me.httpmsg)
                     if(me.repeatNum>=2){
+                        window.external.Close_Camera("closeCamera_callback");
                         // window.soundPlayer10();
                         alert('身份认证失败，请到行政大厅注册登记窗口打印营业执照')
                         // window.soundPlayer23();
