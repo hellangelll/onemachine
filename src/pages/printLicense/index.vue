@@ -43,6 +43,7 @@
                 },100)
               }
               if ((me.sec--) <= 0) {
+                window.external.Close_Camera("closeCamera_callback");
                 window.PP_viewer_three && window.PP_viewer_three.hide();
                 window.PP_viewer_four && window.PP_viewer_four.hide();
                 window.hideLoding();
@@ -69,6 +70,7 @@
               this.sec = 120;
             },
             refreshView (){
+              window.external.Close_Camera("closeCamera_callback");
               window.refreshView()
             }
         }
