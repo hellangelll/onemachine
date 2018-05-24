@@ -10,8 +10,10 @@
     mounted: function(){
       var me =this;
       if(me.canPrint){
+        var time = 2000;
         window.soundPlayer13();
       } else {
+        var time = 18000;
         window.soundPlayer15();
       }
       setTimeout(function(){
@@ -25,8 +27,8 @@
                   me.printSuccess()
                 }
             }
-        },2000)
-      },5000)
+        },time)
+      },3000)
       
     },
     methods: {
