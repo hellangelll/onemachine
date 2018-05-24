@@ -9,23 +9,54 @@
   	props: ['canPrint'],
     mounted: function(){
       var me =this;
+      var time = 18000;
       if(me.canPrint){
-        var time = 2000;
         window.soundPlayer13();
       } else {
-        var time = 18000;
         window.soundPlayer15();
       }
       setTimeout(function(){
         var interval = window.setInterval(function() {
             var receivedData = window.external.PrintStatus();
             var info = JSON.parse(receivedData);
-            // alert(receivedData)
+            // alert('打印中倒计时的信息:'+time+'_'+'canPrint:'+me.canPrint+'_'+receivedData)
             if (info.status == 100) {
-                if(info.typecode != 1){
-                  clearInterval(interval);
-                  me.printSuccess()
-                }
+              switch (info.typecode) {
+                  case 0:
+                      clearInterval(interval);
+                      me.printSuccess()
+                      break;
+                  case 1:
+                      //alert("正在打印，请稍后再试");
+                      break;
+                  case 2:
+                      // alert("初始化中，请稍后再试");
+                      break;
+                  case 4:
+                      // alert("打印机正在准备，请稍后再试");
+                      break;
+                  case 100:
+                      window.soundPlayer21()
+                      alert("打印机缺纸，请联系工作人员，谢谢！");
+                      window.refreshView();
+                      break;
+                  case 200:
+                      window.soundPlayer20()
+                      alert("打印机缺墨，请联系工作人员，谢谢！");
+                      window.refreshView();
+                      break;
+                  case 400:
+                      window.soundPlayer22()
+                      alert("打印机卡纸，请联系工作人员，谢谢！");
+                      window.refreshView();
+                      break;
+                  case 800:
+                      alert("打印机仓门被打开，请联系工作人员，谢谢！"); 
+                      window.refreshView();
+                  default:
+                      alert(info.typeinfo);
+                        
+              }
             }
         },time)
       },3000)

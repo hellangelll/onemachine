@@ -123,12 +123,14 @@
                     return
                 }
                 if(window.localStorage['print_555_status'] == '0'){
+                    window.soundPlayer21();
                     alert('打印机缺纸，请联系工作人员，谢谢！')
                     // this.$router.push('/');
                     window.refreshView();
                     return
                 }
                 var receivedData = window.external.PrintStatus();
+                // alert('副本打印机器信息:'+receivedData);
                 var info = JSON.parse(receivedData);
                 if (info.status == 100) {
                         //正常状态

@@ -41,6 +41,7 @@ export default {
         window.localStorage['print_555_status'] = '';
         window.localStorage['print_111_status'] = '';
         window.getPrintStatus_callback_toPrint = function(receivedData){
+          // alert('printerInfo:'+receivedData);
           var data = JSON.parse(receivedData);
           if (data.status == 100) {
             var arr = data.papertrays;
